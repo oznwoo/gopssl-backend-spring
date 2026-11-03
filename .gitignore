@@ -1,0 +1,28 @@
+# 비밀값
+.env
+.env.*
+!.env.example
+application-local.yml
+
+# Gradle
+.gradle/
+build/
+!gradle/wrapper/gradle-wrapper.jar
+
+# IDE
+.idea/
+*.iml
+*.ipr
+*.iws
+out/
+.vscode/
+.project
+.classpath
+.settings/
+bin/
+
+# OS
+.DS_Store
+
+# Claude Code worktree 작업 폴더
+.claude/worktrees/
