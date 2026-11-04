@@ -256,6 +256,17 @@ class ErrorResponseContractTest {
                 .andExpect(content().json("{\"detail\":\"Method Not Allowed\"}", JsonCompareMode.STRICT));
     }
 
+    /** v1과 다른 점을 기록한다: v1은 422다. 티켓 표 밖이라 맞추지 않았다. */
+    @Test
+    void wrongContentTypeIs415WithStatusPhrase() throws Exception {
+        mockMvc.perform(post("/probe/items")
+                        .with(LOGGED_IN)
+                        .contentType(MediaType.TEXT_PLAIN)
+                        .content("{\"name\":\"a\",\"age\":1}"))
+                .andExpect(status().isUnsupportedMediaType())
+                .andExpect(content().json("{\"detail\":\"Unsupported Media Type\"}", JsonCompareMode.STRICT));
+    }
+
     // 처리 안 된 예외
 
     /** v1은 텍스트 응답이다. JSON을 유지하기로 했고 PR 설명에 질문으로 남겼다. */
