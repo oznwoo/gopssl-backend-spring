@@ -1,0 +1,33 @@
+spring:
+  application:
+    name: gopssl-backend
+  datasource:
+    url: ${DB_URL}
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+  jpa:
+    open-in-view: false
+    hibernate:
+      ddl-auto: validate
+
+# 자리만 잡아둔다. 인증 구현 티켓에서 사용한다.
+jwt:
+  secret: ${JWT_SECRET}
+
+---
+# 로컬: 프로젝트 루트의 .env를 읽는다. 개인 설정은 application-local.yml(커밋 안 됨)에 둔다.
+spring:
+  config:
+    activate:
+      on-profile: local
+    import: optional:file:.env[.properties]
+
+---
+# 이미 스키마가 있는 DB는 V1을 실행하지 않고 baseline으로 기록한다. 빈 DB에서는 V1을 실행한다.
+spring:
+  config:
+    activate:
+      on-profile: dev | prod
+  flyway:
+    baseline-on-migrate: true
+    baseline-version: 1

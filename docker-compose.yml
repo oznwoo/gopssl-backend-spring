@@ -1,0 +1,22 @@
+# 로컬 개발 전용 DB. 5432는 gopssl-dev-db가 쓰므로 5433을 쓴다.
+# 접속 정보는 .env에서 읽는다 (.env.example 참고).
+services:
+  db:
+    image: postgres:16
+    container_name: gopssl-spring-db
+    environment:
+      POSTGRES_DB: gopssl
+      POSTGRES_USER: ${DB_USERNAME:?.env에 DB_USERNAME을 설정하세요}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:?.env에 DB_PASSWORD를 설정하세요}
+    ports:
+      - "127.0.0.1:5433:5432"
+    volumes:
+      - gopssl-spring-db-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U \"$$POSTGRES_USER\" -d \"$$POSTGRES_DB\""]
+      interval: 5s
+      timeout: 3s
+      retries: 10
+
+volumes:
+  gopssl-spring-db-data:
