@@ -40,3 +40,14 @@ docker compose up -d              # PostgreSQL 16, localhost:5433
 ./gradlew test    # Docker 필요 (Testcontainers)
 ./gradlew build   # CI와 같은 명령
 ```
+
+## 엔티티 ↔ 테이블
+
+| 엔티티 | 테이블 |
+| --- | --- |
+| `user.entity.User` | `users` |
+| `customer.entity.Customer` | `customers` |
+| `sale.entity.Sale` | `sales` |
+| `sale.entity.SaleTreatment` | `sale_treatments` |
+| `treatment.entity.Treatment` | `treatments` |
+| `treatment.entity.TreatmentCategory` | `treatment_categories` |
